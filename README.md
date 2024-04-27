@@ -1,7 +1,7 @@
 # TODO
 
 - [x] Negation
-- [ ] Subtraction
+- [x] Subtraction
 - [ ] Divison
 - [ ] Exponentiation
 
