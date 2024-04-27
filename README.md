@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Negation
+- [x] Negation
 - [ ] Subtraction
 - [ ] Divison
 - [ ] Exponentiation
