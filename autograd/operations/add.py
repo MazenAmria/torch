@@ -17,8 +17,7 @@ class Add(Operator):
         self.b.backward(grad)
 
 
-def variable_add(self,
-            other: Union[Variable, float]) -> Variable:
+def variable_add(self: Variable, other: Union[Variable, float]) -> Variable:
     if isinstance(other, float):
         result = self.value + other
         return Variable(result, self)

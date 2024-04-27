@@ -2,7 +2,7 @@ from .variable import Variable
 from .operations.add import variable_add
 from .operations.mul import variable_mul
 from .operations.neg import variable_neg
-from .operations.pow import variable_pow
+from .operations.pow import variable_pow, variable_rpow
 
 
 Variable.__add__ = variable_add
@@ -15,5 +15,6 @@ Variable.__rmul__ = variable_mul
 Variable.__truediv__ = lambda a, b: a * b**-1
 Variable.__rtruediv__ = lambda b, a: b**-1 * a
 Variable.__pow__ = variable_pow
+Variable.__rpow__ = variable_rpow
 
 __exports__ = { 'Variable': Variable }

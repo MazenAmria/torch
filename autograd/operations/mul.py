@@ -29,7 +29,7 @@ class Multiply(Operator):
         self.b.backward(grad * self.a.value)
 
 
-def variable_mul(self,
+def variable_mul(self: Variable,
             other: Union[Variable, float]) -> Variable:
     if isinstance(other, float):
         result = self.value * other
