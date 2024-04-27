@@ -2,12 +2,12 @@
 
 Basic implementation for the main modules of PyTorch. For educational purposes only. 
 
-See `test/` directory for example usage.
+`main.py` contains an example of using the built modules to solve the logical AND gate problem.
 
 # TODO
 
 - [x] Implement `autograd` module to support arithmetic operations on scalars.
-- [ ] Simple implementation of `optim` and `nn` modules.
+- [x] Simple implementation of `optim` and `nn` modules.
 - [ ] Visualizing the computational graph.
 - [ ] N-dimensional arrays (Tensors) instead of scalars.
 - [ ] Add Tensor operations.

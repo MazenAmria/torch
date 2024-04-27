@@ -27,7 +27,7 @@ class Exponentation(Operator):
 
     def backward(self,
                  grad: float) -> None:
-        self.x.backward(np.log(self.c) * self.c ** self.x.value)
+        self.x.backward(grad * np.log(self.c) * self.c ** self.x.value)
 
 def variable_pow(self: Variable, p: float) -> Variable:
     result = self.value ** p
