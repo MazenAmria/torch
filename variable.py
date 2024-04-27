@@ -1,55 +1,94 @@
-class AdditionOperator:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+from abc import ABC, abstractmethod
 
-    def backward(self, grad):
-        self.a.backward(grad)
-        self.b.backward(grad)
 
-class MultiplicationOperator:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+class Node(ABC):
+    @abstractmethod
+    def backward(self,
+                 grad: float) -> None:
+        pass
 
-    def backward(self, grad):
-        self.a.backward(grad * self.b.value)
-        self.b.backward(grad * self.a.value)
 
-class ExponentiationOperator:
-    def __init__(self, x, p):
-        self.x = x
-        self.p = p
+class Operator(Node):
+    pass
 
-    def backward(self, grad):
-        self.x.backward(grad * self.x.value ** (self.p - 1) * self.p)
 
-class Variable:
-    def __init__(self, value, parent = None):
+class Variable(Node):
+    def __init__(self,
+                 value: float,
+                 parent: Operator = None) -> None:
         self.value = value
         self.parent = parent
         self.grad = 0.0
 
-    def __add__(self, other):
-        result = self.value + other.value
-        op = AdditionOperator(self, other)
-        return Variable(result, op)
-
-    def __mul__(self, other):
-        result = self.value * other.value
-        op = MultiplicationOperator(self, other)
-        return Variable(result, op)
-
-    def __pow__(self, p):
-        result = self.value ** p
-        op = ExponentiationOperator(self, p)
-        return Variable(result, op)
-
-    def backward(self, grad=1.0):
+    def backward(self,
+                 grad: float = 1.0) -> None:
         self.grad += grad
         if self.parent is not None:
             self.parent.backward(grad)
 
+
+class AdditionOperator(Operator):
+    def __init__(self,
+                 a: Variable,
+                 b: Variable) -> None:
+        self.a = a
+        self.b = b
+
+    def backward(self,
+                 grad: float) -> None:
+        self.a.backward(grad)
+        self.b.backward(grad)
+
+
+class MultiplicationOperator(Operator):
+    def __init__(self,
+                 a: Variable,
+                 b: Variable) -> None:
+        self.a = a
+        self.b = b
+
+    def backward(self,
+                 grad: float) -> None:
+        self.a.backward(grad * self.b.value)
+        self.b.backward(grad * self.a.value)
+
+
+class ExponentiationOperator(Operator):
+    def __init__(self,
+                 x: Variable,
+                 p: float) -> None:
+        self.x = x
+        self.p = p
+
+    def backward(self,
+                 grad: float) -> None:
+        self.x.backward(grad * self.x.value ** (self.p - 1) * self.p)
+
+
+def variable_add(self,
+            other: Variable) -> Variable:
+    result = self.value + other.value
+    op = AdditionOperator(self, other)
+    return Variable(result, op)
+
+
+def variable_mul(self,
+            other: Variable) -> Variable:
+    result = self.value * other.value
+    op = MultiplicationOperator(self, other)
+    return Variable(result, op)
+
+
+def variable_pow(self,
+            p: float) -> Variable:
+    result = self.value ** p
+    op = ExponentiationOperator(self, p)
+    return Variable(result, op)
+
+
+Variable.__add__ = variable_add
+Variable.__mul__ = variable_mul
+Variable.__pow__ = variable_pow
 
 a = Variable(2.0)
 b = Variable(-3.0)
