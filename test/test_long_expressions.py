@@ -7,11 +7,12 @@ def test_long_expression_return_correct_result_and_gradient():
     c = Variable(3.0)
     d = Variable(-6.0)
 
-    Q = a**2 + b**5 + c*d
+    Q = a**2 + b**5 + 3.0 * c * d + 7.0
     Q.backward()
 
-    assert Q.value == -3127
+    assert Q.value == -3156
     assert a.grad == 8.0
     assert b.grad == 3125
-    assert c.grad == -6.0
-    assert d.grad == 3.0
+    assert c.grad == -18.0
+    assert d.grad == 9.0
+

@@ -1,5 +1,19 @@
+from typing import Union
+
 from ..operator import Operator
 from ..variable import Variable
+
+
+class Scale(Operator):
+    def __init__(self,
+                 x: Variable,
+                 c: float) -> None:
+        self.x = x
+        self.c = c
+
+    def backward(self,
+                 grad: float) -> None:
+        self.x.backward(grad * self.c)
 
 
 class Multiply(Operator):
@@ -16,7 +30,14 @@ class Multiply(Operator):
 
 
 def variable_mul(self,
-            other: Variable) -> Variable:
-    result = self.value * other.value
-    op = Multiply(self, other)
-    return Variable(result, op)
+            other: Union[Variable, float]) -> Variable:
+    if isinstance(other, float):
+        result = self.value * other
+        op = Scale(self, other)
+        return Variable(result, op)
+    elif isinstance(other, Variable):
+        result = self.value * other.value
+        op = Multiply(self, other)
+        return Variable(result, op)
+    else:
+        raise TypeError(f"unsupported operand type(s) for *: '{self.__class__}' and '{type(other)}'")

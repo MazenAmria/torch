@@ -5,7 +5,7 @@ from .operator import Operator
 class Variable(Node):
     def __init__(self,
                  value: float,
-                 parent: Operator = None) -> None:
+                 parent: Node = None) -> None:
         self.value = value
         self.parent = parent
         self.grad = 0.0
