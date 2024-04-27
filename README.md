@@ -2,7 +2,7 @@
 
 - [x] Negation
 - [x] Subtraction
-- [ ] Divison
+- [x] Divison
 - [ ] Exponentiation
 
 # Future Work
