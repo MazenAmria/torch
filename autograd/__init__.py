@@ -1,3 +1,4 @@
+from .node import Node
 from .variable import Variable
 from .operations.add import variable_add
 from .operations.mul import variable_mul
