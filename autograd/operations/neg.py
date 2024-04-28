@@ -1,17 +1,17 @@
 from typing import Union
 
-from ..operator import Operator
+from ..operator import UnaryOperator
 from ..variable import Variable
 
 
-class Negation(Operator):
+class Negation(UnaryOperator):
     def __init__(self,
-                 a: Variable) -> None:
-        self.a = a
+                 x: Variable) -> None:
+        super().__init__(x)
 
     def backward(self,
                  grad: float) -> None:
-        self.a.backward(-1.0 * grad)
+        self.x.backward(-1.0 * grad)
 
 
 def variable_neg(self) -> Variable:

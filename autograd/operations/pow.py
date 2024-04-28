@@ -2,15 +2,15 @@ from typing import Union
 
 import numpy as np
 
-from ..operator import Operator
+from ..operator import UnaryOperator
 from ..variable import Variable
 
 
-class Power(Operator):
+class Power(UnaryOperator):
     def __init__(self,
                  x: Variable,
                  p: float) -> None:
-        self.x = x
+        super().__init__(x)
         self.p = p
 
     def backward(self,
@@ -18,12 +18,12 @@ class Power(Operator):
         self.x.backward(grad * self.x.value ** (self.p - 1) * self.p)
 
 
-class Exponentation(Operator):
+class Exponentation(UnaryOperator):
     def __init__(self,
                  c: float,
                  x: Variable) -> None:
+        super().__init__(x)
         self.c = c
-        self.x = x
 
     def backward(self,
                  grad: float) -> None:

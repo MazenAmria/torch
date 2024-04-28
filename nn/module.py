@@ -13,9 +13,15 @@ class Module(Node):
     def forward(self, x: List[float]) -> Variable:
         pass
 
-    @abstractmethod
-    def params(self) -> List[Variable]:
-        pass
+    def parameters(self) -> List[Variable]:
+        x = DummyFloatList()
+        y = self.forward(x)
+        return y.parameters()
 
     def backward(self, grad: float) -> None:
         self.out.backward(grad)
+
+
+class DummyFloatList(list):
+    def __getitem__(self, key: int) -> float:
+        return 0.0

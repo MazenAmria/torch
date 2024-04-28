@@ -1,5 +1,6 @@
+from typing import List
+
 from .node import Node
-from .operator import Operator
 
 
 class Variable(Node):
@@ -15,3 +16,8 @@ class Variable(Node):
         self.grad += grad
         if self.parent is not None:
             self.parent.backward(grad)
+
+    def parameters(self) -> List['Variable']:
+        if self.parent is None:
+            return [self]
+        return self.parent.parameters()

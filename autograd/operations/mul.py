@@ -1,14 +1,14 @@
 from typing import Union
 
-from ..operator import Operator
+from ..operator import UnaryOperator, BinaryOperator
 from ..variable import Variable
 
 
-class Scale(Operator):
+class Scale(UnaryOperator):
     def __init__(self,
                  x: Variable,
                  c: float) -> None:
-        self.x = x
+        super().__init__(x)
         self.c = c
 
     def backward(self,
@@ -16,12 +16,11 @@ class Scale(Operator):
         self.x.backward(grad * self.c)
 
 
-class Multiply(Operator):
+class Multiply(BinaryOperator):
     def __init__(self,
                  a: Variable,
                  b: Variable) -> None:
-        self.a = a
-        self.b = b
+        super().__init__(a, b)
 
     def backward(self,
                  grad: float) -> None:

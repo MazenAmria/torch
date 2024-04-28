@@ -16,10 +16,6 @@ class AndSolver(Module):
         s = x[0] * self.w_1 + x[1] * self.w_2 - self.b
         return sigmoid(s)
 
-    def params(self) -> List[Variable]:
-        return [self.w_1, self.w_2, self.b]
-
-
 data = [
         [[0.0, 0.0], 0.0],
         [[0.0, 1.0], 0.0],
@@ -28,7 +24,7 @@ data = [
         ]
 model = AndSolver()
 
-optimizer = SGD(model.params(), learning_rate = 0.3)
+optimizer = SGD(model.parameters(), lr=0.3)
 
 for i in range(1000):
     optimizer.zero_grad()

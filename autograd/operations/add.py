@@ -1,15 +1,14 @@
-from typing import Union
+from typing import Union, List
 
-from ..operator import Operator
+from ..operator import BinaryOperator
 from ..variable import Variable
 
 
-class Add(Operator):
+class Add(BinaryOperator):
     def __init__(self,
                  a: Variable,
                  b: Variable) -> None:
-        self.a = a
-        self.b = b
+        super().__init__(a, b)
 
     def backward(self,
                  grad: float) -> None:
