@@ -39,7 +39,7 @@ def test_exp_backward_would_return_correct_gradient():
 
 
 def test_var_exp_would_return_correct_result():
-    a = exp(1.0)
+    a = Variable(np.e)
     b = Variable(4.0)
 
     c = a ** b
@@ -48,7 +48,7 @@ def test_var_exp_would_return_correct_result():
 
 
 def test_var_exp_backward_would_return_correct_gradients():
-    a = exp(1.0)
+    a = Variable(np.e)
     b = Variable(4.0)
 
     c = a ** b
