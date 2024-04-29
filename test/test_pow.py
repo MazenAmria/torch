@@ -1,7 +1,6 @@
 import numpy as np
 
-from autograd import Variable
-from torch import exp
+from autograd import Variable, exp
 from .util import almost_equal
 
 
