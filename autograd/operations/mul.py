@@ -1,4 +1,5 @@
 from typing import Union
+from numbers import Number
 
 from ..operator import UnaryOperator, BinaryOperator
 from ..variable import Variable
@@ -7,12 +8,12 @@ from ..variable import Variable
 class Scale(UnaryOperator):
     def __init__(self,
                  x: Variable,
-                 c: float) -> None:
+                 c: Number) -> None:
         super().__init__(x)
         self.c = c
 
     def backward(self,
-                 grad: float) -> None:
+                 grad: Number) -> None:
         self.x.backward(grad * self.c)
 
 
@@ -23,14 +24,14 @@ class Multiply(BinaryOperator):
         super().__init__(a, b)
 
     def backward(self,
-                 grad: float) -> None:
+                 grad: Number) -> None:
         self.a.backward(grad * self.b.value)
         self.b.backward(grad * self.a.value)
 
 
 def variable_mul(self: Variable,
-            other: Union[Variable, float]) -> Variable:
-    if isinstance(other, float):
+            other: Union[Variable, Number]) -> Variable:
+    if isinstance(other, Number):
         result = self.value * other
         op = Scale(self, other)
         return Variable(result, op)

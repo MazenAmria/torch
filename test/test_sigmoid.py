@@ -1,5 +1,6 @@
 from nn.functional import sigmoid
 from autograd import Variable
+from .util import almost_equal
 
 
 def test_sigmoid_has_correct_gradient():
@@ -7,5 +8,5 @@ def test_sigmoid_has_correct_gradient():
     y = sigmoid(x)
     y.backward()
 
-    assert abs(y.value - 0.5) < 1e-3
-    assert abs(x.grad - 0.25) < 1e-3
+    assert almost_equal(y.value, 0.5)
+    assert almost_equal(x.grad, 0.25)

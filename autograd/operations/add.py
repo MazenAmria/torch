@@ -1,7 +1,19 @@
 from typing import Union, List
+from numbers import Number
 
-from ..operator import BinaryOperator
+from ..operator import UnaryOperator, BinaryOperator
 from ..variable import Variable
+
+
+class AddConstant(UnaryOperator):
+    def __init__(self,
+                 x: Variable,
+                 c: Number) -> None:
+        super().__init__(x)
+
+    def backward(self,
+                 grad: Number) -> None:
+        self.x.backward(grad)
 
 
 class Add(BinaryOperator):
@@ -11,15 +23,16 @@ class Add(BinaryOperator):
         super().__init__(a, b)
 
     def backward(self,
-                 grad: float) -> None:
+                 grad: Number) -> None:
         self.a.backward(grad)
         self.b.backward(grad)
 
 
-def variable_add(self: Variable, other: Union[Variable, float]) -> Variable:
-    if isinstance(other, float):
+def variable_add(self: Variable, other: Union[Variable, Number]) -> Variable:
+    if isinstance(other, Number):
         result = self.value + other
-        return Variable(result, self)
+        op = AddConstant(self, other)
+        return Variable(result, op)
     elif isinstance(other, Variable):
         result = self.value + other.value
         op = Add(self, other)

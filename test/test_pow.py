@@ -1,10 +1,8 @@
 import numpy as np
 
 from autograd import Variable
-
-
-def almost_equal(a: float, b: float, precision: float = 1e-5):
-    return abs(a - b) < precision
+from torch import exp
+from .util import almost_equal
 
 
 def test_pow_would_return_correct_result():
@@ -27,7 +25,7 @@ def test_pow_backward_would_return_corect_gradient():
 def test_exp_would_return_correct_result():
     x = Variable(4.0)
 
-    y = np.e ** x
+    y = exp(x)
     
     assert almost_equal(y.value, np.exp(4.0))
 
@@ -35,7 +33,27 @@ def test_exp_would_return_correct_result():
 def test_exp_backward_would_return_correct_gradient():
     x = Variable(4.0)
 
-    y = np.e ** x
+    y = exp(x)
     y.backward()
     
     assert almost_equal(x.grad, np.exp(4.0))
+
+
+def test_var_exp_would_return_correct_result():
+    a = exp(1.0)
+    b = Variable(4.0)
+
+    c = a ** b
+    
+    assert almost_equal(c.value, np.exp(4.0))
+
+
+def test_var_exp_backward_would_return_correct_gradients():
+    a = exp(1.0)
+    b = Variable(4.0)
+
+    c = a ** b
+    c.backward()
+    
+    assert almost_equal(a.grad, 4 * np.exp(3.0))
+    assert almost_equal(b.grad, np.exp(4.0))
