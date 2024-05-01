@@ -9,6 +9,7 @@ e = Variable(5.0, name='e')
 f = Variable(6.0, name='f')
 
 Q = a + b * c + d ** e + log(f, 10)
+Q.name = 'Q'
 Q.backward()
 
 visualize(Q, 'graph.png')
