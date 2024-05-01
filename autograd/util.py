@@ -15,6 +15,7 @@ def exp(x: Union[Variable, Number]) -> Union[Variable, Number]:
     else:
         raise TypeError(f"unsupported argument type for exp: '{type(x)}'")
 
+
 def log(x: Union[Variable, Number], b: Number = None) -> Union[Variable, Number]:
     if isinstance(x, Number):
         if b is not None: 

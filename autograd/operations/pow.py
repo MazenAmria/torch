@@ -7,53 +7,33 @@ from ..operator import UnaryOperator, BinaryOperator
 from ..variable import Variable
 
 
-class Power(UnaryOperator):
+class Exponentiation(BinaryOperator):
     def __init__(self,
-                 x: Variable,
-                 p: Number) -> None:
-        super().__init__(x)
-        self.p = p
-
-    def backward(self,
-                 grad: Number) -> None:
-        self.x.backward(grad * self.x.value ** (self.p - 1) * self.p)
-
-
-class Exponentiation(UnaryOperator):
-    def __init__(self,
-                 c: Number,
-                 x: Variable) -> None:
-        super().__init__(x)
-        self.c = c
-
-    def backward(self,
-                 grad: Number) -> None:
-        self.x.backward(grad * np.log(self.c) * self.c ** self.x.value)
-
-
-class VariableExponentiation(BinaryOperator):
-    def __init__(self,
-                 a: Variable,
-                 b: Variable) -> None:
+                 a: Union[Variable, Number],
+                 b: Union[Variable, Number]) -> None:
         super().__init__(a, b)
 
     def backward(self,
-                 grad: Number) -> None:
-        self.a.backward(grad * self.a.value ** (self.b.value - 1) * self.b.value)
-        self.b.backward(grad * np.log(self.a.value) * self.a.value ** self.b.value)
+                 grad: Number = 1.0) -> None:
+        a_val = self.a.value if isinstance(self.a, Variable) else self.a
+        b_val = self.b.value if isinstance(self.b, Variable) else self.b
+
+        if isinstance(self.a, Variable):
+            self.a.backward(grad * a_val ** (b_val - 1) * b_val)
+        if isinstance(self.b, Variable):
+            self.b.backward(grad * np.log(a_val) * a_val ** b_val)
 
 
 def variable_pow(self: Variable, other: Union[Variable, Number]) -> Variable:
     if isinstance(other, Number):
         result = self.value ** other
-        op = Power(self, other)
-        return Variable(result, op)
-    if isinstance(other, Variable):
+    elif isinstance(other, Variable):
         result = self.value ** other.value
-        op = VariableExponentiation(self, other)
-        return Variable(result, op)
     else:
         raise TypeError(f"unsupported operand type(s) for **: '{self.__class__}' and '{type(other)}'")
+    
+    op = Exponentiation(self, other)
+    return Variable(result, op)
 
 
 def variable_rpow(self: Variable, other: Number) -> Variable:

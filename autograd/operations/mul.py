@@ -1,43 +1,34 @@
 from typing import Union
 from numbers import Number
 
-from ..operator import UnaryOperator, BinaryOperator
+from ..operator import BinaryOperator
 from ..variable import Variable
-
-
-class Scale(UnaryOperator):
-    def __init__(self,
-                 x: Variable,
-                 c: Number) -> None:
-        super().__init__(x)
-        self.c = c
-
-    def backward(self,
-                 grad: Number) -> None:
-        self.x.backward(grad * self.c)
 
 
 class Multiply(BinaryOperator):
     def __init__(self,
-                 a: Variable,
-                 b: Variable) -> None:
+                 a: Union[Variable, Number],
+                 b: Union[Variable, Number]) -> None:
         super().__init__(a, b)
 
     def backward(self,
-                 grad: Number) -> None:
-        self.a.backward(grad * self.b.value)
-        self.b.backward(grad * self.a.value)
+                 grad: Number = 1.0) -> None:
+        a_val = self.a.value if isinstance(self.a, Variable) else self.a
+        b_val = self.b.value if isinstance(self.b, Variable) else self.b
+
+        if isinstance(self.a, Variable):
+            self.a.backward(grad * b_val)
+        if isinstance(self.b, Variable):
+            self.b.backward(grad * a_val)
 
 
-def variable_mul(self: Variable,
-            other: Union[Variable, Number]) -> Variable:
+def variable_mul(self: Variable, other: Union[Variable, Number]) -> Variable:
     if isinstance(other, Number):
         result = self.value * other
-        op = Scale(self, other)
-        return Variable(result, op)
     elif isinstance(other, Variable):
         result = self.value * other.value
-        op = Multiply(self, other)
-        return Variable(result, op)
     else:
         raise TypeError(f"unsupported operand type(s) for *: '{self.__class__}' and '{type(other)}'")
+    
+    op = Multiply(self, other)
+    return Variable(result, op)

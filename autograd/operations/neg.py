@@ -1,4 +1,5 @@
 from typing import Union
+from numbers import Number
 
 from ..operator import UnaryOperator
 from ..variable import Variable
@@ -10,7 +11,7 @@ class Negation(UnaryOperator):
         super().__init__(x)
 
     def backward(self,
-                 grad: float) -> None:
+                 grad: Number = 1.0) -> None:
         self.x.backward(-1.0 * grad)
 
 

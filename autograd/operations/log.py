@@ -11,7 +11,7 @@ class NaturalLogarithm(UnaryOperator):
         super().__init__(x)
 
     def backward(self,
-                 grad: Number) -> None:
+                 grad: Number = 1.0) -> None:
         self.x.backward(grad / self.x.value)
 
 
