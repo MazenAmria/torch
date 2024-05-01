@@ -5,7 +5,7 @@ from ..operator import BinaryOperator
 from ..variable import Variable
 
 
-class Add(BinaryOperator):
+class Addition(BinaryOperator):
     def __init__(self,
                  a: Union[Variable, Number],
                  b: Union[Variable, Number]) -> None:
@@ -27,5 +27,5 @@ def variable_add(self: Variable, other: Union[Variable, Number]) -> Variable:
     else:
         raise TypeError(f"unsupported operand type(s) for +: '{self.__class__}' and '{type(other)}'")
         
-    op = Add(self, other)
+    op = Addition(self, other)
     return Variable(result, op)

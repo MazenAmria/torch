@@ -5,7 +5,7 @@ from ..operator import BinaryOperator
 from ..variable import Variable
 
 
-class Multiply(BinaryOperator):
+class Multiplication(BinaryOperator):
     def __init__(self,
                  a: Union[Variable, Number],
                  b: Union[Variable, Number]) -> None:
@@ -30,5 +30,5 @@ def variable_mul(self: Variable, other: Union[Variable, Number]) -> Variable:
     else:
         raise TypeError(f"unsupported operand type(s) for *: '{self.__class__}' and '{type(other)}'")
     
-    op = Multiply(self, other)
+    op = Multiplication(self, other)
     return Variable(result, op)

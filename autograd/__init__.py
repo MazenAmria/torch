@@ -19,4 +19,9 @@ Variable.__rtruediv__ = lambda b, a: b**-1 * a
 Variable.__pow__ = variable_pow
 Variable.__rpow__ = variable_rpow
 
-__exports__ = { 'Variable': Variable, 'exp': exp, 'log': log }
+__exports__ = {
+    'Node': Node,
+    'Variable': Variable,
+    'exp': exp,
+    'log': log
+}
