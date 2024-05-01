@@ -27,7 +27,10 @@ def visualize_node(node: Union[Node, Number], graph: AGraph, ref: str) -> AGraph
     if isinstance(node, Number):
         graph.add_node(ref, label=f'{node:.3f}')
     elif isinstance(node, Variable):
-        graph.add_node(ref, label=f'{{ <f0> v | <f1> g }} | {{ <f2> {node.value:.3f} | <f3> {node.grad:.3f} }}', shape='record')
+        if node.name is not None:
+            graph.add_node(ref, label=f'{{ <f0> {node.name} }} | {{ <f1> v | <f2> g }} | {{ <f3> {node.value:.3f} | <f4> {node.grad:.3f} }}', shape='record')
+        else:
+            graph.add_node(ref, label=f'{{ <f0> v | <f1> g }} | {{ <f2> {node.value:.3f} | <f3> {node.grad:.3f} }}', shape='record')
         if node.parent is not None:
             graph = visualize_node(node.parent, graph, ref + '1')
             graph.add_edge(ref + '1', ref)

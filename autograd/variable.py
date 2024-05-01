@@ -7,9 +7,11 @@ from .node import Node
 class Variable(Node):
     def __init__(self,
                  value: Number,
-                 parent: Node = None) -> None:
+                 parent: Node = None,
+                 name: str = None) -> None:
         self.value = value
         self.parent = parent
+        self.name = name
         self.grad = 0.0
 
     def backward(self,
