@@ -5,7 +5,9 @@ Basic implementation for the main modules of PyTorch. For educational purposes o
 `main.py` contains an example of using the built modules to solve the logical AND gate problem.
 
 `visualize.py` contains an example of visualizing the computational graph of the following equation:
-$$Q = a + b \dot c + d ^ e + \log_{10}(f)$$
+
+$$Q = a + b \cdot c + d ^ e + \log_{10}(f)$$
+
 ![Computational Graph](graph.png)
 
 # TODO
