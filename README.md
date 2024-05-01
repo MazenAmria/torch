@@ -30,7 +30,7 @@ X = [1.0, 1.0], y_p = 0.911975431040061, y = 1.0
 
 `visualize.py` contains an example of visualizing the computational graph of the following equation:
 
-$$Q = a + b \cdot c + d ^ e + \log_{10}(f)$$
+$$Q = a + b \cdot c + d ^ e + \log_{g}(f)$$
 
 ![Computational Graph](graph.png)
 

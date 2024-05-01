@@ -15,11 +15,8 @@ class NaturalLogarithm(UnaryOperator):
         self.x.backward(grad / self.x.value)
 
 
-def variable_log(self: Variable, other: Number = None) -> Variable:
+def variable_log(self: Variable) -> Variable:
         result = np.log(self.value)
         op = NaturalLogarithm(self)
         
-        if other is None:
-            return Variable(result, op)
-        else:
-            return Variable(result, op) / np.log(other)
+        return Variable(result, op)
