@@ -17,7 +17,7 @@ It's recommended to create a dedicated conda environment for this project.
 `main.py` contains an example of using the built modules to solve the logical AND gate problem. The model is a single neuron with sigmoid activation function.
 
 ```bash
-$ python main.py
+(torch) $ python main.py
 
 X = [0.0, 0.0], y_p = 0.0006123178950711394, y = 0.0
 X = [0.0, 1.0], y_p = 0.07379362759003869, y = 0.0
