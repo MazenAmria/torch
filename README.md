@@ -2,7 +2,31 @@
 
 Basic implementation for the main modules of PyTorch. For educational purposes only. 
 
-`main.py` contains an example of using the built modules to solve the logical AND gate problem.
+## Setup
+
+It's recommended to create a dedicated conda environment for this project.
+
+```bash
+(torch) $ sudo apt install libgraphviz-dev graphviz
+
+(torch) $ pip install -r requirements.txt
+```
+
+## Training a Sample Model
+
+`main.py` contains an example of using the built modules to solve the logical AND gate problem. The model is a single neuron with sigmoid activation function.
+
+```bash
+$ python main.py
+
+X = [0.0, 0.0], y_p = 0.0006123178950711394, y = 0.0
+X = [0.0, 1.0], y_p = 0.07379362759003869, y = 0.0
+X = [1.0, 0.0], y_p = 0.07379362759003869, y = 0.0
+X = [1.0, 1.0], y_p = 0.911975431040061, y = 1.0
+
+```
+
+## Visualizing the Computational Graph
 
 `visualize.py` contains an example of visualizing the computational graph of the following equation:
 
