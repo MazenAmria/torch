@@ -3,7 +3,7 @@ from .variable import Variable
 from .operations.add import variable_add
 from .operations.mul import variable_mul
 from .operations.pow import variable_pow, variable_rpow
-from .util import exp, log
+from .util import exp, log, rand, zero
 
 
 Variable.__add__ = variable_add
@@ -22,5 +22,7 @@ __exports__ = {
     'Node': Node,
     'Variable': Variable,
     'exp': exp,
-    'log': log
+    'log': log,
+    'zero': zero,
+    'rand': rand
 }

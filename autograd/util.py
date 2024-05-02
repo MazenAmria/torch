@@ -30,3 +30,11 @@ def log(x: Union[Variable, Real], b: Union[Variable, Real] = None) -> Union[Vari
         return result / denominator
     else:
         return result
+
+
+def rand() -> Variable:
+    return Variable(np.random.random_sample())
+
+
+def zero() -> Variable:
+    return Variable(0.0)

@@ -12,17 +12,29 @@ It's recommended to create a dedicated conda environment for this project.
 (torch) $ pip install -r requirements.txt
 ```
 
-## Training a Sample Model
+## Training Sample Models
 
-`main.py` contains an example of using the built modules to solve the logical AND gate problem. The model is a single neuron with sigmoid activation function.
+`and.py` contains an example of using the built modules to solve the logical AND gate problem. The model is a single neuron with sigmoid activation function.
 
 ```bash
-(torch) $ python main.py
+(torch) $ python and.py
 
 X = [0.0, 0.0], y_p = 0.001, y = 0.0
 X = [0.0, 1.0], y_p = 0.074, y = 0.0
 X = [1.0, 0.0], y_p = 0.074, y = 0.0
 X = [1.0, 1.0], y_p = 0.912, y = 1.0
+
+```
+
+`xor.py` contains a network that solves the logical XOR gate problem.
+
+```bash
+(torch) $ python xor.py
+
+X = [0.0, 0.0], y_p = 0.036, y = 0.0
+X = [0.0, 1.0], y_p = 0.968, y = 1.0
+X = [1.0, 0.0], y_p = 0.968, y = 1.0
+X = [1.0, 1.0], y_p = 0.034, y = 0.0
 
 ```
 

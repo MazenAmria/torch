@@ -1,18 +1,19 @@
 from typing import List
+from numbers import Real
 
 from nn import Module
 from nn.functional import sigmoid
-from autograd import Variable
+from autograd import Variable, rand
 from optim import SGD
 
 
 class AndSolver(Module):
     def __init__(self) -> None:
-        self.w_1 = Variable(0.0)
-        self.w_2 = Variable(0.0)
-        self.b = Variable(0.0)
+        self.w_1 = rand()
+        self.w_2 = rand()
+        self.b = rand()
 
-    def forward(self, x: List[float]) -> Variable:
+    def forward(self, x: List[Real]) -> Variable:
         s = x[0] * self.w_1 + x[1] * self.w_2 - self.b
         return sigmoid(s)
 
