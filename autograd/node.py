@@ -1,14 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import List
-from numbers import Number
+from numbers import Real
 
 
 class Node(ABC):
     @abstractmethod
     def backward(self,
-                 grad: Number = 1.0) -> None:
-        pass
-    
-    @abstractmethod
-    def parameters(self) -> List['Variable']:
+                 grad: Real = 1.0) -> None:
         pass

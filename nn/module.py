@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Iterator
 from abc import abstractmethod
 
 from autograd import Node, Variable
@@ -13,15 +13,10 @@ class Module(Node):
     def forward(self, x: List[float]) -> Variable:
         pass
 
-    def parameters(self) -> List[Variable]:
-        x = DummyFloatList()
-        y = self.forward(x)
-        return y.parameters()
+    def parameters(self) -> Iterator[Variable]:
+        for _, value in self.__dict__.items():
+            if isinstance(value, Variable):
+                yield value
 
     def backward(self, grad: float) -> None:
         self.out.backward(grad)
-
-
-class DummyFloatList(list):
-    def __getitem__(self, key: int) -> float:
-        return 0.0

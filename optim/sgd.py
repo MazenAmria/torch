@@ -1,13 +1,14 @@
-from typing import List
+from typing import Iterator
+from numbers import Real
 
 from autograd import Variable
 
 
 class SGD:
     def __init__(self,
-                 params: List[Variable],
-                 lr: float = 1e-3) -> None:
-        self.params = params
+                 params: Iterator[Variable],
+                 lr: Real = 1e-3) -> None:
+        self.params = list(params)
         self.lr = lr
 
     def step(self) -> None:

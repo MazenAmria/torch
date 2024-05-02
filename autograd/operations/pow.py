@@ -1,5 +1,5 @@
 from typing import Union
-from numbers import Number
+from numbers import Real
 
 import numpy as np
 
@@ -9,12 +9,12 @@ from ..variable import Variable
 
 class Exponentiation(BinaryOperator):
     def __init__(self,
-                 a: Union[Variable, Number],
-                 b: Union[Variable, Number]) -> None:
+                 a: Union[Variable, Real],
+                 b: Union[Variable, Real]) -> None:
         super().__init__(a, b)
 
     def backward(self,
-                 grad: Number = 1.0) -> None:
+                 grad: Real = 1.0) -> None:
         a_val = self.a.value if isinstance(self.a, Variable) else self.a
         b_val = self.b.value if isinstance(self.b, Variable) else self.b
 
@@ -24,8 +24,8 @@ class Exponentiation(BinaryOperator):
             self.b.backward(grad * np.log(a_val) * a_val ** b_val)
 
 
-def variable_pow(self: Variable, other: Union[Variable, Number]) -> Variable:
-    if isinstance(other, Number):
+def variable_pow(self: Variable, other: Union[Variable, Real]) -> Variable:
+    if isinstance(other, Real):
         result = self.value ** other
     elif isinstance(other, Variable):
         result = self.value ** other.value
@@ -36,7 +36,7 @@ def variable_pow(self: Variable, other: Union[Variable, Number]) -> Variable:
     return Variable(result, op)
 
 
-def variable_rpow(self: Variable, other: Number) -> Variable:
+def variable_rpow(self: Variable, other: Real) -> Variable:
     result = other ** self.value
     op = Exponentiation(other, self)
     return Variable(result, op)

@@ -1,5 +1,5 @@
 from typing import Union
-from numbers import Number
+from numbers import Real
 
 from ..operator import BinaryOperator
 from ..variable import Variable
@@ -7,12 +7,12 @@ from ..variable import Variable
 
 class Multiplication(BinaryOperator):
     def __init__(self,
-                 a: Union[Variable, Number],
-                 b: Union[Variable, Number]) -> None:
+                 a: Union[Variable, Real],
+                 b: Union[Variable, Real]) -> None:
         super().__init__(a, b)
 
     def backward(self,
-                 grad: Number = 1.0) -> None:
+                 grad: Real = 1.0) -> None:
         a_val = self.a.value if isinstance(self.a, Variable) else self.a
         b_val = self.b.value if isinstance(self.b, Variable) else self.b
 
@@ -22,8 +22,8 @@ class Multiplication(BinaryOperator):
             self.b.backward(grad * a_val)
 
 
-def variable_mul(self: Variable, other: Union[Variable, Number]) -> Variable:
-    if isinstance(other, Number):
+def variable_mul(self: Variable, other: Union[Variable, Real]) -> Variable:
+    if isinstance(other, Real):
         result = self.value * other
     elif isinstance(other, Variable):
         result = self.value * other.value

@@ -1,12 +1,11 @@
-from typing import List
-from numbers import Number
+from numbers import Real
 
 from .node import Node
 
 
 class Variable(Node):
     def __init__(self,
-                 value: Number,
+                 value: Real,
                  parent: Node = None,
                  name: str = None) -> None:
         self.value = value
@@ -15,12 +14,7 @@ class Variable(Node):
         self.grad = 0.0
 
     def backward(self,
-                 grad: Number = 1.0) -> None:
+                 grad: Real = 1.0) -> None:
         self.grad += grad
         if self.parent is not None:
             self.parent.backward(grad)
-
-    def parameters(self) -> List['Variable']:
-        if self.parent is None:
-            return [self]
-        return self.parent.parameters()

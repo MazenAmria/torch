@@ -1,4 +1,4 @@
-from numbers import Number
+from numbers import Real
 
 import numpy as np
 
@@ -11,7 +11,7 @@ class NaturalLogarithm(UnaryOperator):
         super().__init__(x)
 
     def backward(self,
-                 grad: Number = 1.0) -> None:
+                 grad: Real = 1.0) -> None:
         self.x.backward(grad / self.x.value)
 
 
