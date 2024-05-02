@@ -36,4 +36,4 @@ for i in range(1000):
 
 for X, y in data:
     y_p = model(X)
-    print(f'X = {X}, y_p = {y_p.value}, y = {y}')
+    print(f'X = {X}, y_p = {y_p.value:.3f}, y = {y}')
