@@ -1,6 +1,8 @@
 from typing import List
 from numbers import Real
 
+import random
+
 from nn import Module
 from nn.functional import sigmoid
 from autograd import Variable, rand
@@ -28,12 +30,13 @@ model = AndSolver()
 optimizer = SGD(model.parameters(), lr=0.3)
 
 for i in range(1000):
-    optimizer.zero_grad()
-    for X, y in data:
+    shuffled_data = random.sample(data, len(data))
+    for X, y in shuffled_data:
+        optimizer.zero_grad()
         y_p = model(X)
         loss = (y_p - y) ** 2
         loss.backward()
-    optimizer.step()
+        optimizer.step()
 
 for X, y in data:
     y_p = model(X)
