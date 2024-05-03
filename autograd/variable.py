@@ -15,6 +15,9 @@ class Variable(Node):
 
     def backward(self,
                  grad: Real = 1.0) -> None:
+        if abs(grad) < 1e-3:
+            return
+
         self.grad += grad
         if self.parent is not None:
             self.parent.backward(grad)
