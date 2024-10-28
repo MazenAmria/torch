@@ -51,9 +51,20 @@ $$Q = a + b \cdot c + d ^ e + \log_{g}(f)$$
 - [x] Implement `autograd` module to support arithmetic operations on scalars.
 - [x] Simple implementation of `optim` and `nn` modules.
 - [x] Visualizing the computational graph.
+- [ ] Writing testcases to ensure the correctness of different cases:
+	- [ ] Linear Computational Graph (when the graph is just like a linked list).
+	- [ ] Tree Computational Graph (when each variable is only used to compute only one higher level variable).
+	- [ ] Directed Acyclic Computational Graph (when a variable can be used more than once). Make sure to test this both when the variable that is used more than once is an intermediate variable and when it is a terminal variable.
+	- [ ] Common Cases: Skip Connections, and Regularization term.
 - [ ] N-dimensional arrays (Tensors) instead of scalars.
 - [ ] Add Tensor operations.
 - [ ] Implement `nn` module and `optim` to support Tensors and N-dimensional inputs.
+
+# Considerations
+
+- [ ] Is the Computational Graph always DAG?
+- [ ] If two paths meet at some common point $Z$ from which both algorithms should continue to calculate $\frac{\partial Z}{\partial x}$, should you do that for each path separately, or can you optimize and only backpropagate once with the total gradient?
+- [ ] Check the correctness of the algorithm on the case mentioned in the previous point. I think in this case, the algorithm would first backpropagate the partial gradient to $Z$ from the first path, but then it backpropagates the second path with the total graident, which would result in duplicate gradients at $x$ (it'd duplicate the partial gradient coming from the first path).
 
 # Note
 
