@@ -4,7 +4,7 @@ Basic implementation for the main modules of PyTorch. For educational purposes o
 
 ## Setup
 
-It's recommended to create a dedicated conda environment for this project.
+Use Python 3.8. It's recommended to create a dedicated conda environment for this project.
 
 ```bash
 (torch) $ sudo apt install libgraphviz-dev graphviz
@@ -62,9 +62,9 @@ $$Q = a + b \cdot c + d ^ e + \log_{g}(f)$$
 
 # Considerations
 
-- [ ] Is the Computational Graph always DAG?
-- [ ] If two paths meet at some common point $Z$ from which both algorithms should continue to calculate $\frac{\partial Z}{\partial x}$, should you do that for each path separately, or can you optimize and only backpropagate once with the total gradient?
-- [ ] Check the correctness of the algorithm on the case mentioned in the previous point. I think in this case, the algorithm would first backpropagate the partial gradient to $Z$ from the first path, but then it backpropagates the second path with the total graident, which would result in duplicate gradients at $x$ (it'd duplicate the partial gradient coming from the first path).
+- [x] Is the Computational Graph always DAG? **Yes.**
+- [x] Check the correctness of the algorithm when $c = f(b)$, $d = g(b)$, and $b = h(a)$. I think in this case, the algorithm would first backpropagate the partial gradient to $b$ from the first path, but then it backpropagates the second path with the total graident, which would result in duplicate gradients at $a$ (it'd duplicate the partial gradient coming from the first path).
+- [ ] The recursive algorithm is exponential in time, maybe a breadth-first traversal works better.
 
 # Note
 
