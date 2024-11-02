@@ -51,6 +51,8 @@ $$Q = a + b \cdot c + d ^ e + \log_{g}(f)$$
 - [x] Implement `autograd` module to support arithmetic operations on scalars.
 - [x] Simple implementation of `optim` and `nn` modules.
 - [x] Visualizing the computational graph.
+- [ ] Adding `input_cache` to the variables.
+- [ ] Controlling `input_cache` with the `requires_grad` flag.
 - [ ] Writing testcases to ensure the correctness of different cases:
 	- [ ] Linear Computational Graph (when the graph is just like a linked list).
 	- [ ] Tree Computational Graph (when each variable is only used to compute only one higher level variable).
